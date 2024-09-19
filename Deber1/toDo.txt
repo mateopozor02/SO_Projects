@@ -1,0 +1,6 @@
+To Do's
+1. Mateo: history input del history 
+2. Pablo: comandos concatenados con & 
+3. Emi: validaciones, implementar ifconfig e ipconfig 
+
+* Todo corre con el metodo run command que ya esta implementado (ver codigo)
