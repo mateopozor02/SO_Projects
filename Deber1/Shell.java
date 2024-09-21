@@ -74,12 +74,18 @@ public class Shell {
                 } else {
                     // Get the command number
                     int commandNumber = Integer.parseInt(command[0].substring(1));
-                    // Get the command from the history
-                    String lastCommand = history.get(commandNumber);
-                    // Split the last command
-                    String[] lastCommandSplit = lastCommand.split(" ");
-                    // Store the last command in the command array
-                    command = lastCommandSplit;
+                    // Check if command number exists
+                    if (history.get(commandNumber) != null){
+                        // Get the command from the history
+                        String lastCommand = history.get(commandNumber);
+                        // Split the last command
+                        String[] lastCommandSplit = lastCommand.split(" ");
+                        // Store the last command in the command array
+                        command = lastCommandSplit;
+                    } else {
+                        System.out.println("Queried command does not exist!");
+                        return; 
+                    }
                 }
             }
 
