@@ -67,7 +67,6 @@ public class Shell {
                 if (command[0].charAt(1) == '#'){
                     // Get the last command entered by the user
                     String lastCommand = history.get(commandNumber);
-                    System.out.println(lastCommand);
                     // Split the last command
                     String[] lastCommandSplit = lastCommand.split(" ");
                     // Store the last command in the command array
@@ -83,6 +82,13 @@ public class Shell {
                     command = lastCommandSplit;
                 }
             }
+
+            // Check if the query is a history command
+            if (command[0].equals("history")){
+                printHistory();
+                return; 
+            }
+
             // Create a process to run the command
             ProcessBuilder pb = new ProcessBuilder(command); 
             Process process = pb.start(); 
