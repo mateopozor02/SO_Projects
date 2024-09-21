@@ -86,19 +86,23 @@ public class Shell {
             // Create a process to run the command
             ProcessBuilder pb = new ProcessBuilder(command); 
             Process process = pb.start(); 
-            int exitValue = process.exitValue(); 
+            int exitValue; 
+            BufferedReader br = null;
 
-            // Read output 
-            StringBuilder output = new StringBuilder(); 
-            BufferedReader br = null; 
-
-            // Check the exit value and assing stdout or stderror to br
-            if (exitValue == 0){
-                br = new BufferedReader(new InputStreamReader(process.getInputStream())); 
-            } else {
-                br = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            try {
+                exitValue = process.waitFor(); 
+                // Check the exit value and assing stdout or stderror to br
+                if (exitValue == 0){
+                    br = new BufferedReader(new InputStreamReader(process.getInputStream())); 
+                } else {
+                    br = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                }
+            } catch(InterruptedException e){
+                e.printStackTrace();
             }
 
+            // Read output 
+            StringBuilder output = new StringBuilder();   
             String line = null;
 
             // Print the name of the command with its arguments
