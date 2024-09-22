@@ -7,10 +7,13 @@ import java.io.IOException;
 public class Shell {
     // Hash Map to store the commands
     private static Map<Integer, String> history; 
+    // Keep track of the number of commands entered by the user
+    private static int commandNumber;
     public static void main(String[] args) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); 
         String commandLine;
         history = new HashMap<>(); 
+        commandNumber = 0;
 
         try {
             while (true) {
@@ -18,13 +21,24 @@ public class Shell {
                 
                 // Read input from user 
                 commandLine = reader.readLine(); 
+
+                // Remove leading and trailing whitespaces
+                commandLine = commandLine.trim();
+
                 // Split the given command 
                 String[] command = commandLine.split(" "); 
 
-                // Process the exit command to end the shell
-                if (command[0].equals("exit") && command.length == 1){
-                    break; 
-                } 
+                // Check if the command is not related to history
+                if (!(command[0].charAt(0) == '!')){
+                    // Save the command and the command number in history
+                    history.put(commandNumber + 1, commandLine);
+                    commandNumber++;
+                }
+
+                // Reset command number if it reaches 20
+                if (commandNumber == 20){
+                    commandNumber = 0; 
+                }
 
                 runCommand(command);
                  
@@ -37,6 +51,34 @@ public class Shell {
 
     private static void runCommand(String[] command){
         try {
+            // Check if the command is exit
+            if (command[0].equals("exit")){
+                System.exit(0);
+            } else if (command[0].equals("history")){
+                // Print the history of commands
+                printHistory();
+                return;
+            } else if (command[0].charAt(0) == '!'){
+                // Check if the user wants to run the last command (!#) entered 
+                if (command[0].charAt(1) == '#'){
+                    // Get the last command entered by the user
+                    String lastCommand = history.get(commandNumber);
+                    System.out.println(lastCommand);
+                    // Split the last command
+                    String[] lastCommandSplit = lastCommand.split(" ");
+                    // Store the last command in the command array
+                    command = lastCommandSplit;
+                } else {
+                    // Get the command number
+                    int commandNumber = Integer.parseInt(command[0].substring(1));
+                    // Get the command from the history
+                    String lastCommand = history.get(commandNumber);
+                    // Split the last command
+                    String[] lastCommandSplit = lastCommand.split(" ");
+                    // Store the last command in the command array
+                    command = lastCommandSplit;
+                }
+            }
             // Create a process to run the command
             ProcessBuilder pb = new ProcessBuilder(command); 
             Process process = pb.start(); 
@@ -61,6 +103,18 @@ public class Shell {
         } catch(IOException e){
             System.out.println("Command execution failed");
             e.printStackTrace();
+        }
+    }
+
+    private static void printHistory(){
+        // Check if the history is empty
+        if (history.isEmpty()){
+            System.out.println("No commands entered yet");
+            return;
+        }
+        // Print the history of commands
+        for (int i = 0; i < history.size(); i++){
+            System.out.println(i + 1 + ". " + history.get(i + 1));
         }
     }
 }
