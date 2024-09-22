@@ -53,6 +53,10 @@ public class Shell {
         try {
             // Check if the command is exit
             if (command[0].equals("exit")){
+                if (command.length > 1){
+                    System.out.println("Invalid command, invalid number of arguments");
+                    return;
+                }
                 System.exit(0);
             } else if (command[0].equals("history")){
                 // Print the history of commands
