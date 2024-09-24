@@ -25,23 +25,36 @@ public class Shell {
                 // Remove leading and trailing whitespaces
                 commandLine = commandLine.trim();
 
-                // Split the given command 
-                String[] command = commandLine.split(" "); 
-
-                // Check if the command is not related to history
-                if (!(command[0].charAt(0) == '!')){
-                    // Save the command and the command number in history
+                if (commandLine.contains("&")){
+                    // Store the command and the command number in history
                     history.put(commandNumber + 1, commandLine);
                     commandNumber++;
-                }
+                    // Split the given command 
+                    String[] commands = commandLine.split("&");
+                    for (String cmd : commands) {
+                        // Trim spaces and split by spaces
+                        String[] commandSplit = cmd.trim().split("\\s+");
+                        if (commandSplit.length > 0) {
+                            runCommand(commandSplit);
+                        }
+                    }
+                } else {
+                    // Split the given command 
+                    String[] command = commandLine.split(" "); 
 
+                    // Check if the command is not related to history
+                    if (!(command[0].charAt(0) == '!')){
+                        // Save the command and the command number in history
+                        history.put(commandNumber + 1, commandLine);
+                        commandNumber++;
+                    }
+
+                    runCommand(command);
+                }
                 // Reset command number if it reaches 20
                 if (commandNumber == 20){
                     commandNumber = 0; 
-                }
-
-                runCommand(command);
-                 
+                }   
             }
         } catch(IOException e){
             System.out.println("An error ocurred while reading the command");
