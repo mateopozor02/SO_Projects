@@ -159,4 +159,16 @@ public class Shell {
             System.out.println(i + 1 + ". " + history.get(i + 1));
         }
     }
+
+    private static void runMultipleCommands(String concatenatedCommand){
+        // Split the given command 
+        String[] commands = concatenatedCommand.split("&");
+        for (String cmd : commands) {
+            // Trim spaces and split by spaces
+            String[] commandSplit = cmd.trim().split("\\s+");
+            if (commandSplit.length > 0) {
+                runCommand(commandSplit);
+            }
+        }
+    }
 }
