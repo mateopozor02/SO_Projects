@@ -29,15 +29,7 @@ public class Shell {
                     // Store the command and the command number in history
                     history.put(commandNumber + 1, commandLine);
                     commandNumber++;
-                    // Split the given command 
-                    String[] commands = commandLine.split("&");
-                    for (String cmd : commands) {
-                        // Trim spaces and split by spaces
-                        String[] commandSplit = cmd.trim().split("\\s+");
-                        if (commandSplit.length > 0) {
-                            runCommand(commandSplit);
-                        }
-                    }
+                    runMultipleCommands(commandLine);
                 } else {
                     // Split the given command 
                     String[] command = commandLine.split(" "); 
@@ -80,10 +72,16 @@ public class Shell {
                 if (command[0].charAt(1) == '#'){
                     // Get the last command entered by the user
                     String lastCommand = history.get(commandNumber);
-                    // Split the last command
-                    String[] lastCommandSplit = lastCommand.split(" ");
-                    // Store the last command in the command array
-                    command = lastCommandSplit;
+                    // Check if last command is a multiple command
+                    if (lastCommand.contains("&")){
+                        runMultipleCommands(lastCommand);
+                        return;
+                    } else {
+                        // Split the last command
+                        String[] lastCommandSplit = lastCommand.split(" ");
+                        // Store the last command in the command array
+                        command = lastCommandSplit;
+                    }
                 } else {
                     // Get the command number
                     int commandNumber = Integer.parseInt(command[0].substring(1));
@@ -91,10 +89,16 @@ public class Shell {
                     if (history.get(commandNumber) != null){
                         // Get the command from the history
                         String lastCommand = history.get(commandNumber);
-                        // Split the last command
-                        String[] lastCommandSplit = lastCommand.split(" ");
-                        // Store the last command in the command array
-                        command = lastCommandSplit;
+                        // Check if last command is a multiple command
+                        if (lastCommand.contains("&")){
+                            runMultipleCommands(lastCommand);
+                            return;
+                        } else {
+                            // Split the last command
+                            String[] lastCommandSplit = lastCommand.split(" ");
+                            // Store the last command in the command array
+                            command = lastCommandSplit;
+                        }
                     } else {
                         System.out.println("Queried command does not exist!");
                         return; 
