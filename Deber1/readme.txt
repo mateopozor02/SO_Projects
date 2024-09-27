@@ -5,6 +5,8 @@ Integrantes:
 - Pablo Herrera 
 - Mateo Pozo 
 
+Nota: el proyecto se testeo en Mac y en Ubuntu 22 con WSL. 
+
 Contribucion 
 - Maria Emilia Aguirre: mecanismo de validacion del shell para los comandos 6 comandos.
 Implementacion de los comandos de red y cd
