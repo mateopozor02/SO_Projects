@@ -9,7 +9,8 @@ Contribucion
 - Maria Emilia Aguirre: mecanismo de validacion del shell para los comandos 6 comandos.
 Implementacion de los comandos de red y cd
 
-- Pablo Herrera: implementacion de los comandos concatenados.
+- Pablo Herrera: implementacion de los comandos concatenados y apoyo para implementar el
+comando cd.
 
 - Mateo Pozo: implementacion de la estructura general del proyecto y mecanismos para 
-correr los comandos y parsing. 
+correr los comandos, parsing y manejo de directorios. 
