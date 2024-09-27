@@ -10,12 +10,17 @@ public class Shell {
     private static Map<Integer, String> history;
     // Keep track of the number of commands entered by the user
     private static int commandNumber;
+    // Keep track of the current directory
+    private static String currentDirectory; 
+    // Keep track of the previous directory
+    private static String previousDirectory;
 
     public static void main(String[] args) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String commandLine;
         history = new HashMap<>();
         commandNumber = 0;
+        currentDirectory = System.getProperty("user.dir");
 
         try {
             while (true) {
@@ -200,9 +205,13 @@ public class Shell {
         try {
             if (path.equals("~")) {
                 path = System.getProperty("user.home");
+            } else if (path.equals("..")) {
+                path = previousDirectory;
             }
             java.nio.file.Path newPath = Paths.get(path).toAbsolutePath();
             System.setProperty("user.dir", newPath.toString());
+            previousDirectory = currentDirectory;
+            currentDirectory = newPath.toString();
             System.out.println("Directory changed to " + newPath);
         } catch (Exception e) {
             System.out.println("Failed to change directory: " + e.getMessage());
