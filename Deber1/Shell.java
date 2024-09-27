@@ -159,6 +159,8 @@ public class Shell {
 
             // Create a process to run the command
             ProcessBuilder pb = new ProcessBuilder(command);
+            // Set the working directory
+            pb.directory(Paths.get(currentDirectory).toFile());
             Process process = pb.start();
             int exitValue;
             BufferedReader br = null;
