@@ -4,18 +4,24 @@ import java.io.InputStreamReader;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.nio.file.Files;
 
 public class Shell {
     // Hash Map to store the commands
     private static Map<Integer, String> history;
     // Keep track of the number of commands entered by the user
     private static int commandNumber;
+    // Keep track of the current directory
+    private static String currentDirectory; 
+    // Keep track of the previous directory
+    private static String previousDirectory;
 
     public static void main(String[] args) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String commandLine;
         history = new HashMap<>();
         commandNumber = 0;
+        currentDirectory = System.getProperty("user.dir");
 
         try {
             while (true) {
@@ -193,21 +199,41 @@ public class Shell {
 
     private static boolean isValidCommand(String command) {
         return command.equals("ls") || command.equals("cd") || command.equals("echo") || command.equals("ping")
-                || command.equals("ifconfig") || command.equals("ipconfig") || command.equals("exit");
+                || command.equals("ifconfig") || command.equals("ipconfig") || command.equals("exit") || command.equals("pwd");
     }
 
     private static void changeDirectory(String path) {
         try {
             if (path.equals("~")) {
                 path = System.getProperty("user.home");
+            } else if (path.equals("..")) {
+                // Get the parent directory of the current directory
+                java.nio.file.Path parentDir = Paths.get(currentDirectory).getParent();
+                if (parentDir != null) {
+                    path = parentDir.toString();
+                } else {
+                    System.out.println("Already at the root directory.");
+                    return;
+                }
             }
-            java.nio.file.Path newPath = Paths.get(path).toAbsolutePath();
-            System.setProperty("user.dir", newPath.toString());
-            System.out.println("Directory changed to " + newPath);
+            
+            // Convert the path to absolute and set it as the current directory
+            java.nio.file.Path newPath = Paths.get(path).toAbsolutePath().normalize();
+            if (!Files.exists(newPath) || !Files.isDirectory(newPath)) {
+                System.out.println("Directory does not exist: " + newPath);
+                return;
+            }
+    
+            // Update directories
+            previousDirectory = currentDirectory;
+            currentDirectory = newPath.toString();
+            System.setProperty("user.dir", currentDirectory);
+            System.out.println("Directory changed to " + currentDirectory);
         } catch (Exception e) {
             System.out.println("Failed to change directory: " + e.getMessage());
         }
     }
+    
 
     private static boolean validatePing(String[] command) {
         if (command.length != 4 || !command[1].equals("-c")) {
