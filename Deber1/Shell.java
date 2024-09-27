@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Shell {
     // Hash Map to store the commands
@@ -218,9 +219,11 @@ public class Shell {
                     return;
                 }
             }
-            
-            // Convert the path to absolute and set it as the current directory
-            java.nio.file.Path newPath = Paths.get(path).toAbsolutePath().normalize();
+
+            // Resolve the path relative to the current directory
+            Path newPath = Paths.get(currentDirectory).resolve(path).normalize();
+
+            // Check if the new path is a valid directory
             if (!Files.exists(newPath) || !Files.isDirectory(newPath)) {
                 System.out.println("Directory does not exist: " + newPath);
                 return;
