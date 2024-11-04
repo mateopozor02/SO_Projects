@@ -52,7 +52,9 @@ public class TraderImpl implements Trader {
                 }
             }
             // If we have enough of the grain, deduct it from the stock
-            stock.compute(g, (k, v) -> v - order.get(g));
+            synchronized(this){
+                stock.compute(g, (k, v) -> v - order.get(g));
+            }
         }
     }
 
