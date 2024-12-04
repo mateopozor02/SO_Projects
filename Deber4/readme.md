@@ -1,12 +1,10 @@
 # Bankers Algorithm
 Este trabajo es una implementacion de Bankers Algorithm. Para ejecutar el algoritmo, se soportan dos tipos 
-de input. En el primer caso, se lo hace a través del archivo `bankers_csv.py`, que toma el input de un archivo 
-csv, como en el caso de `ejemplo0.csv`.
+de input. En el primer caso, se lo hace a través del archivo `bankers_csv.py`, que toma el input de un archivo csv, como en el caso de `ejemplo0.csv, ejemplo1.csv, ejemplo2.csv `. Se puede utilizar el archivo `test.csv` para casos especificos del usuario. 
 
-En el caso del archivo `bankers_algo.py`, el input se toma de consola. Se le pide al usuario los inputs necesarios 
-en cada paso. 
+En el caso del archivo `bankers_algo.py`, el input se toma de consola. Se le pide al usuario los inputs necesarios en cada paso. 
 
-## Explicación de los inputs
+## Explicación de los inputs bankers_csv.py
 
 1. **El número de procesos que van a competir por recursos:**  
    Implícito en el número de filas del archivo CSV.
@@ -22,7 +20,7 @@ en cada paso.
    Cada celda `Proceso_i, Recurso_j` contiene dos valores separados por un punto y coma (`;`). El primer valor representa las instancias asignadas del recurso `Recurso_j` al proceso `Proceso_i`. El segundo valor representa el número máximo de instancias del recurso `Recurso_j` que el proceso `Proceso_i` necesitará para completar su tarea.
    Por ejemplo, si tenemos un `Proceso_0` que tiene 7 instancias del `Recurso_0` y el máximo de instancias que necesita para culminar su tarea es 10, entonces en la celda se encontrará el valor: `7;10`.
 
-## Inputs en el programa de consola
+## Inputs en el programa bankers_algo.py
 ```bash
 >>Enter number of processes: 5
 >>Enter number of resource types: 3

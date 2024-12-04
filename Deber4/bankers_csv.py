@@ -43,7 +43,6 @@ def load_data(file_path):
             available.append(diferencia)
         else:
             print(f"Instancias insuficientes del Recurso_{r+1}: total = {tot}, total_allocated = {alloc}")
-            raise ValueError("Instancias insuficientes de recursos.")
     
     available = np.array(available)
     return process_names, available, max_matrix, allocation
@@ -80,7 +79,23 @@ def is_safe_state(processes, available, max_matrix, allocation):
     print(f"System is in a safe state.\nSafe sequence: {safe_sequence}")
     return True, safe_sequence
 
-print("Ejemplo 0:")
-process_names, available, max_matrix, allocation = load_data('ejemplo0.csv')
-is_safe_state(process_names, available, max_matrix, allocation)
-exit()
+if __name__ == "__main__":
+    print("Ejemplo 0:")
+    process_names, available, max_matrix, allocation = load_data('ejemplo0.csv')
+    is_safe_state(process_names, available, max_matrix, allocation)
+    print()
+
+    print("Ejemplo 1:")
+    process_names, available, max_matrix, allocation = load_data('ejemplo1.csv')
+    is_safe_state(process_names, available, max_matrix, allocation)
+    print()
+
+    print("Ejemplo 2:")
+    process_names, available, max_matrix, allocation = load_data('ejemplo2.csv')
+    is_safe_state(process_names, available, max_matrix, allocation)
+    print()
+
+    print("Test:")
+    process_names, available, max_matrix, allocation = load_data('test.csv')
+    is_safe_state(process_names, available, max_matrix, allocation)
+    print()
