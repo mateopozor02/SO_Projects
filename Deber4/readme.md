@@ -1,4 +1,10 @@
 # Bankers Algorithm
+
+## Integrantes 
+- Maria Emilia Aguirre: implementación de los inputs y desarrollo de algoritmo.
+- Pablo Herrera: Implementación de parsing de archivos y desarrollo de algoritmo.
+- Mateo Pozo: Estructura general del código, desarrollo del algoritmo y tests.
+
 Este trabajo es una implementacion de Bankers Algorithm. Para ejecutar el algoritmo, se soportan dos tipos 
 de input. En el primer caso, se lo hace a través del archivo `bankers_csv.py`, que toma el input de un archivo csv, como en el caso de `ejemplo0.csv, ejemplo1.csv, ejemplo2.csv `. Se puede utilizar el archivo `test.csv` para casos especificos del usuario. 
 
