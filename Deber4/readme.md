@@ -10,6 +10,8 @@ de input. En el primer caso, se lo hace a través del archivo `bankers_csv.py`, 
 
 En el caso del archivo `bankers_algo.py`, el input se toma de consola. Se le pide al usuario los inputs necesarios en cada paso. 
 
+En el archivo `tests.py` se prueban casos para evaluar el correcto funcionamiento de la implementación del algoritmo
+
 ## Explicación de los inputs bankers_csv.py
 
 1. **El número de procesos que van a competir por recursos:**  
